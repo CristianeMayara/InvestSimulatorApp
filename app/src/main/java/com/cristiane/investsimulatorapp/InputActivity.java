@@ -11,7 +11,7 @@ import android.widget.EditText;
  * Created by cristiane on 04/07/2018.
  */
 
-public class InputActivity extends AppCompatActivity implements View.OnClickListener {
+public class InputActivity extends AppCompatActivity {
 
     public static final String TAG = "InputActivity";
     private EditText etValueInput;
@@ -32,19 +32,22 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         etDateInput = findViewById(R.id.et_date_input);
         etCdiPercentageInput = findViewById(R.id.et_cdi_percentage_input);
         btSimulate = findViewById(R.id.bt_simulate);
+        btSimulate.setOnClickListener(onClickListener);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_simulate:
-                openResultScreen();
-                break;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.bt_simulate:
+                    openResultScreen();
+                    break;
+            }
         }
-    }
+    };
 
     private void openResultScreen() {
-        //Intent intent = new Intent(this, ResultActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
     }
 }

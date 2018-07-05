@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="input_font_size">34sp</dimen>
-
     <dimen name="edit_text_margin_top">10dp</dimen>
     <dimen name="edit_text_margin_bottom">46dp</dimen>
     <dimen name="edit_text_horizontal_margin">6dp</dimen>
     <dimen name="button_horizontal_margin">20dp</dimen>
+
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="result_activity_section_separator">50dp</dimen>
+    <dimen name="result_activity_row_separator">6dp</dimen>
+
 </resources>
