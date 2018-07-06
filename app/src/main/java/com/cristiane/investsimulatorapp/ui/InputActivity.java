@@ -23,12 +23,16 @@ public class InputActivity extends AppCompatActivity {
     private EditText etCdiPercentageInput;
     private Button btSimulate;
 
+    private InputViewModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
 
         initComponents();
+
+        model = ViewModelProviders.of(this).get(InputViewModel.class);
     }
 
     private void initComponents() {
