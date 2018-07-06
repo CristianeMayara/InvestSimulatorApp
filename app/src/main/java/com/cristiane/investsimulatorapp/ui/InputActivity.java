@@ -1,11 +1,15 @@
-package com.cristiane.investsimulatorapp;
+package com.cristiane.investsimulatorapp.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.cristiane.investsimulatorapp.R;
+import com.cristiane.investsimulatorapp.viewmodel.InputViewModel;
 
 /**
  * Created by cristiane on 04/07/2018.
