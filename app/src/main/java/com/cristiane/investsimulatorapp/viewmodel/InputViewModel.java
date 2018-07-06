@@ -7,13 +7,13 @@ import android.arch.lifecycle.ViewModel;
  */
 
 public class InputViewModel extends ViewModel {
-    private double investedAmount;
-    private String index;
-    private double rate;
-    private boolean isTaxFree;
-    private String maturityDate;
+    private double investedAmount = 32323.0;
+    private String index = "CDI";
+    private double rate = 123;
+    private boolean isTaxFree = false;
+    private String maturityDate = "2023-03-03";
 
-    public void updateData(double investedAmount, String index, double rate, boolean isTaxFree, String maturityDate) {
+    public void updateInputData(double investedAmount, String index, double rate, boolean isTaxFree, String maturityDate) {
         this.investedAmount = investedAmount;
         this.index = index;
         this.rate = rate;

@@ -30,9 +30,9 @@
     <string name="simulate_button">Simular</string>
     <string name="simulate_again_button">Simular novamente</string>
 
-    <string name="real_value">R$ %1$d</string>
-    <string name="percentage_value">%1$d%</string>
-    <string name="income_tax_value">R$ %1$d(%2$d%)</string>
-    <string name="date_result">%1$sd%</string>
+    <string name="real_value">R$ %.2f</string>
+    <string name="percentage_value">%.2f%%</string>
+    <string name="income_tax_value">R$ %.2f(%.2f%%)</string>
+    <string name="date_result">%1$s</string>
 
 </resources>

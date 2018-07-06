@@ -31,8 +31,7 @@ public class InputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
 
         initComponents();
-
-        model = ViewModelProviders.of(this).get(InputViewModel.class);
+        updateValues();
     }
 
     private void initComponents() {
@@ -41,6 +40,8 @@ public class InputActivity extends AppCompatActivity {
         etCdiPercentageInput = findViewById(R.id.et_cdi_percentage_input);
         btSimulate = findViewById(R.id.bt_simulate);
         btSimulate.setOnClickListener(onClickListener);
+
+        model = ViewModelProviders.of(this).get(InputViewModel.class);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -53,6 +54,12 @@ public class InputActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void updateValues() {
+        etValueInput.setText(getString(R.string.real_value, model.getInvestedAmount()));
+        etDateInput.setText(model.getMaturityDate());
+        etCdiPercentageInput.setText(getString(R.string.percentage_value, model.getRate()));
+    }
 
     private void openResultScreen() {
         Intent intent = new Intent(this, ResultActivity.class);
