@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class Result implements Parcelable {
 
-    private Investment investment;
+    private Investment investmentParameter;
     private double grossAmount;
     private double taxesAmount;
     private double netAmount;
@@ -25,8 +25,8 @@ public class Result implements Parcelable {
     public Result() {
     }
 
-    public Result(Investment investment, double grossAmount, double taxesAmount, double netAmount, double grossAmountProfit, double netAmountProfit, double annualGrossRateProfit, double monthlyGrossRateProfit, double dailyGrossRateProfit, double taxesRate, double rateProfit, double annualNetRateProfit) {
-        this.investment = investment;
+    public Result(Investment investmentParameter, double grossAmount, double taxesAmount, double netAmount, double grossAmountProfit, double netAmountProfit, double annualGrossRateProfit, double monthlyGrossRateProfit, double dailyGrossRateProfit, double taxesRate, double rateProfit, double annualNetRateProfit) {
+        this.investmentParameter = investmentParameter;
         this.grossAmount = grossAmount;
         this.taxesAmount = taxesAmount;
         this.netAmount = netAmount;
@@ -40,12 +40,12 @@ public class Result implements Parcelable {
         this.annualNetRateProfit = annualNetRateProfit;
     }
 
-    public Investment getInvestment() {
-        return investment;
+    public Investment getInvestmentParameter() {
+        return investmentParameter;
     }
 
-    public void setInvestment(Investment investment) {
-        this.investment = investment;
+    public void setInvestmentParameter(Investment investmentParameter) {
+        this.investmentParameter = investmentParameter;
     }
 
     public double getGrossAmount() {
@@ -143,7 +143,7 @@ public class Result implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeParcelable(this.investment, flags);
+        parcel.writeParcelable(this.investmentParameter, flags);
         parcel.writeDouble(this.grossAmount);
         parcel.writeDouble(this.taxesAmount);
         parcel.writeDouble(this.netAmount);
@@ -158,7 +158,7 @@ public class Result implements Parcelable {
     }
 
     protected Result(Parcel in) {
-        this.investment = in.readParcelable(Investment.class.getClassLoader());
+        this.investmentParameter = in.readParcelable(Investment.class.getClassLoader());
         this.grossAmount = in.readDouble();
         this.taxesAmount = in.readDouble();
         this.netAmount = in.readDouble();
