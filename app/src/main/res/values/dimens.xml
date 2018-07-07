@@ -6,7 +6,7 @@
     <dimen name="edit_text_horizontal_margin">6dp</dimen>
     <dimen name="button_horizontal_margin">20dp</dimen>
 
-    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
     <dimen name="result_activity_section_separator">50dp</dimen>
     <dimen name="result_activity_row_separator">6dp</dimen>
 
