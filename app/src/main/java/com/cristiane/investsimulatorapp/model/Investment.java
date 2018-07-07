@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class Investment implements Parcelable {
+
     private double investedAmount;
     private double yearlyInterestRate;
     private int maturityTotalDays;

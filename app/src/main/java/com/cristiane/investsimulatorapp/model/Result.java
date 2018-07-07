@@ -8,6 +8,8 @@ import android.os.Parcelable;
  */
 
 public class Result implements Parcelable {
+
+    private Investment investment;
     private double grossAmount;
     private double taxesAmount;
     private double netAmount;
@@ -23,7 +25,8 @@ public class Result implements Parcelable {
     public Result() {
     }
 
-    public Result(double grossAmount, double taxesAmount, double netAmount, double grossAmountProfit, double netAmountProfit, double annualGrossRateProfit, double monthlyGrossRateProfit, double dailyGrossRateProfit, double taxesRate, double rateProfit, double annualNetRateProfit) {
+    public Result(Investment investment, double grossAmount, double taxesAmount, double netAmount, double grossAmountProfit, double netAmountProfit, double annualGrossRateProfit, double monthlyGrossRateProfit, double dailyGrossRateProfit, double taxesRate, double rateProfit, double annualNetRateProfit) {
+        this.investment = investment;
         this.grossAmount = grossAmount;
         this.taxesAmount = taxesAmount;
         this.netAmount = netAmount;
@@ -35,6 +38,14 @@ public class Result implements Parcelable {
         this.taxesRate = taxesRate;
         this.rateProfit = rateProfit;
         this.annualNetRateProfit = annualNetRateProfit;
+    }
+
+    public Investment getInvestment() {
+        return investment;
+    }
+
+    public void setInvestment(Investment investment) {
+        this.investment = investment;
     }
 
     public double getGrossAmount() {
@@ -131,7 +142,8 @@ public class Result implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(this.investment, flags);
         parcel.writeDouble(this.grossAmount);
         parcel.writeDouble(this.taxesAmount);
         parcel.writeDouble(this.netAmount);
@@ -146,6 +158,7 @@ public class Result implements Parcelable {
     }
 
     protected Result(Parcel in) {
+        this.investment = in.readParcelable(Investment.class.getClassLoader());
         this.grossAmount = in.readDouble();
         this.taxesAmount = in.readDouble();
         this.netAmount = in.readDouble();
