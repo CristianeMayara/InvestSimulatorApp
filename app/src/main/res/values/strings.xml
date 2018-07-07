@@ -12,7 +12,7 @@
 
     <!-- Result Screen -->
     <string name="result_title">Resultado da simulação</string>
-    <string name="total_income">Rendimento total de R$ %1$s</string>
+    <string name="total_income">Rendimento total de R$ %.2f</string>
 
     <string name="applied_value">Valor aplicado incialmente</string>
     <string name="gross_value">Valor bruto do investimento</string>

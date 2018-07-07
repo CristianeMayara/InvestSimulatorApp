@@ -44,7 +44,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         initComponents();
-        //updateValues();
+        updateValues();
     }
 
     private void initComponents() {
@@ -83,21 +83,17 @@ public class ResultActivity extends AppCompatActivity {
     };
 
     private void updateValues() {
-        /*etValueInput.setText(getString(R.string.real_value, model.getInvestedAmount()));
-        etDateInput.setText(model.getMaturityDate());
-        etCdiPercentageInput.setText(getString(R.string.percentage_value, model.getRate()));
+        tvValue.setText(getString(R.string.real_value, model.getResult().getGrossAmount()));
+        tvTotalIncome.setText(getString(R.string.total_income, model.getResult().getGrossAmountProfit()));
 
-        tvValue = findViewById(R.id.tv_value);
-        tvTotalIncome = findViewById(R.id.tv_total_income);
-
-        tvAppliedValue = findViewById(R.id.tv_applied_value_result);
-        tvGrossValue = findViewById(R.id.tv_gross_value_result);
-        tvIncomeValue = findViewById(R.id.tv_income_value_result);
-        tvIncomeTax = findViewById(R.id.tv_income_tax_result);
-        tvNetValue = findViewById(R.id.tv_net_value_result);*/
+        tvAppliedValue.setText(getString(R.string.real_value, model.getResult().getInvestment().getInvestedAmount()));
+        tvGrossValue.setText(getString(R.string.real_value, model.getResult().getGrossAmount()));
+        tvIncomeValue.setText(getString(R.string.real_value, model.getResult().getGrossAmountProfit()));
+        tvIncomeTax.setText(getString(R.string.income_tax_value, model.getResult().getTaxesAmount(), model.getResult().getTaxesRate()));
+        tvNetValue.setText(getString(R.string.real_value, model.getResult().getNetAmount()));
 
         tvRedemptionDate.setText(model.getResult().getInvestment().getMaturityDate());
-        tvConsecutiveDays.setText(model.getResult().getInvestment().getMaturityBusinessDays());
+        tvConsecutiveDays.setText(String.valueOf(model.getResult().getInvestment().getMaturityBusinessDays()));
         tvMonthlyIncome.setText(getString(R.string.percentage_value, model.getResult().getAnnualGrossRateProfit()));
         tvCdiPercentage.setText(getString(R.string.percentage_value, model.getResult().getInvestment().getRate()));
         tvAnnualProfitability.setText(getString(R.string.percentage_value, model.getResult().getInvestment().getYearlyInterestRate()));
