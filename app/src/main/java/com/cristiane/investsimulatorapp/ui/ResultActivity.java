@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cristiane.investsimulatorapp.R;
+import com.cristiane.investsimulatorapp.model.Result;
 import com.cristiane.investsimulatorapp.viewmodel.ResultViewModel;
 
 /**
@@ -17,6 +18,8 @@ import com.cristiane.investsimulatorapp.viewmodel.ResultViewModel;
 public class ResultActivity extends AppCompatActivity {
 
     public static final String TAG = "ResultActivity";
+    public static final String ARG_RESULT = "ARG_RESULT";
+
     private TextView tvValue;
     private TextView tvTotalIncome;
 
@@ -44,6 +47,7 @@ public class ResultActivity extends AppCompatActivity {
 
         initComponents();
         initViewModel();
+        setArguments();
         updateValues();
     }
 
@@ -70,6 +74,12 @@ public class ResultActivity extends AppCompatActivity {
 
     private void initViewModel() {
         model = ViewModelProviders.of(this).get(ResultViewModel.class);
+    }
+
+    private void setArguments() {
+        if (getIntent() != null) {
+            model.setResult((Result) getIntent().getExtras().getParcelable(ARG_RESULT));
+        }
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {

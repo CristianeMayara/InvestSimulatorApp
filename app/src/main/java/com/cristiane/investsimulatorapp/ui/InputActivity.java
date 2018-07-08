@@ -65,7 +65,7 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
             public void onChanged(@Nullable Result result) {
                 if (result != null) {
                     //hideProgress();
-                    //openResultScreen();
+                    openResultScreen(result);
                 } else {
                     //showProgress();
                 }
@@ -90,8 +90,9 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
         etCdiPercentageInput.setText(getString(R.string.percentage_value, model.getRate()));
     }
 
-    private void openResultScreen() {
+    private void openResultScreen(Result result) {
         Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(ResultActivity.ARG_RESULT, result);
         startActivity(intent);
     }
 }
