@@ -1,7 +1,11 @@
 package com.cristiane.investsimulatorapp.ui;
 
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.cristiane.investsimulatorapp.R;
+import com.cristiane.investsimulatorapp.model.Result;
 import com.cristiane.investsimulatorapp.viewmodel.InputViewModel;
 
 /**
  * Created by cristiane on 04/07/2018.
  */
 
-public class InputActivity extends AppCompatActivity {
+public class InputActivity extends AppCompatActivity implements LifecycleRegistryOwner {
 
     public static final String TAG = "InputActivity";
     private EditText etValueInput;
@@ -24,6 +29,12 @@ public class InputActivity extends AppCompatActivity {
     private Button btSimulate;
 
     private InputViewModel model;
+    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return this.lifecycleRegistry;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +42,7 @@ public class InputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
 
         initComponents();
+        initViewModel();
         updateValues();
     }
 
@@ -40,8 +52,25 @@ public class InputActivity extends AppCompatActivity {
         etCdiPercentageInput = findViewById(R.id.et_cdi_percentage_input);
         btSimulate = findViewById(R.id.bt_simulate);
         btSimulate.setOnClickListener(onClickListener);
+    }
 
+    private void initViewModel() {
         model = ViewModelProviders.of(this).get(InputViewModel.class);
+        attachObserver(model);
+    }
+
+    private void attachObserver(InputViewModel viewModel) {
+        viewModel.getResult().observe(this, new Observer<Result>() {
+            @Override
+            public void onChanged(@Nullable Result result) {
+                if (result != null) {
+                    //hideProgress();
+                    //openResultScreen();
+                } else {
+                    //showProgress();
+                }
+            }
+        });
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -49,7 +78,7 @@ public class InputActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_simulate:
-                    openResultScreen();
+                    model.loadResult(32323.0, "CDI", 123.0, false, "2023-03-03");
                     break;
             }
         }

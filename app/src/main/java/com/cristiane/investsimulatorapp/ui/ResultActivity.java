@@ -1,7 +1,6 @@
 package com.cristiane.investsimulatorapp.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +43,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         initComponents();
+        initViewModel();
         updateValues();
     }
 
@@ -66,9 +66,10 @@ public class ResultActivity extends AppCompatActivity {
 
         btSimulateAgain = findViewById(R.id.bt_simulate_again);
         btSimulateAgain.setOnClickListener(onClickListener);
+    }
 
+    private void initViewModel() {
         model = ViewModelProviders.of(this).get(ResultViewModel.class);
-        model.loadResult();
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -76,32 +77,29 @@ public class ResultActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_simulate_again:
-                    openInputScreen();
+                    finish();
                     break;
             }
         }
     };
 
     private void updateValues() {
+        //model.loadResult(32323.0, "CDI", 123.0, false, "2023-03-03");
+
         tvValue.setText(getString(R.string.real_value, model.getResult().getGrossAmount()));
         tvTotalIncome.setText(getString(R.string.total_income, model.getResult().getGrossAmountProfit()));
 
-        tvAppliedValue.setText(getString(R.string.real_value, model.getResult().getInvestment().getInvestedAmount()));
+        tvAppliedValue.setText(getString(R.string.real_value, model.getResult().getInvestmentParameter().getInvestedAmount()));
         tvGrossValue.setText(getString(R.string.real_value, model.getResult().getGrossAmount()));
         tvIncomeValue.setText(getString(R.string.real_value, model.getResult().getGrossAmountProfit()));
         tvIncomeTax.setText(getString(R.string.income_tax_value, model.getResult().getTaxesAmount(), model.getResult().getTaxesRate()));
         tvNetValue.setText(getString(R.string.real_value, model.getResult().getNetAmount()));
 
-        tvRedemptionDate.setText(model.getResult().getInvestment().getMaturityDate());
-        tvConsecutiveDays.setText(String.valueOf(model.getResult().getInvestment().getMaturityBusinessDays()));
+        tvRedemptionDate.setText(model.getResult().getInvestmentParameter().getMaturityDate());
+        tvConsecutiveDays.setText(String.valueOf(model.getResult().getInvestmentParameter().getMaturityBusinessDays()));
         tvMonthlyIncome.setText(getString(R.string.percentage_value, model.getResult().getAnnualGrossRateProfit()));
-        tvCdiPercentage.setText(getString(R.string.percentage_value, model.getResult().getInvestment().getRate()));
-        tvAnnualProfitability.setText(getString(R.string.percentage_value, model.getResult().getInvestment().getYearlyInterestRate()));
+        tvCdiPercentage.setText(getString(R.string.percentage_value, model.getResult().getInvestmentParameter().getRate()));
+        tvAnnualProfitability.setText(getString(R.string.percentage_value, model.getResult().getInvestmentParameter().getYearlyInterestRate()));
         tvPeriodProfitability.setText(getString(R.string.percentage_value, model.getResult().getRateProfit()));
-    }
-
-    private void openInputScreen() {
-        Intent intent = new Intent(this, InputActivity.class);
-        startActivity(intent);
     }
 }
