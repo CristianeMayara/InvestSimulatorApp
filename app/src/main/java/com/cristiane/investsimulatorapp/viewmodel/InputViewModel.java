@@ -17,11 +17,11 @@ import retrofit2.Response;
  */
 
 public class InputViewModel extends ViewModel {
-    private double investedAmount = 32323.0;
-    private String index = "CDI";
-    private double rate = 123;
-    private boolean isTaxFree = false;
-    private String maturityDate = "2023-03-03";
+    private double investedAmount;
+    private String index;
+    private double rate;
+    private boolean isTaxFree;
+    private String maturityDate;
 
     private MutableLiveData<Result> result = new MutableLiveData<>();
 
@@ -78,9 +78,6 @@ public class InputViewModel extends ViewModel {
     }
 
     public void loadResult(Double investedAmount, String index, Double rate, boolean isTaxFree, String maturityDate) {
-        //Investment i = new Investment(32323.0,9.5512, 1981, 1409,  "2023-03-03", 120, false);
-        //setResult(new Result(i, 60528.20, 4230.78, 56297.42, 28205.20, 23974.42, 87.26, 0.76, 0.01, 15.0, 9.5512, 74.17));
-
         Call<Result> call = RetrofitInitializer.createService(SimulatorService.class).simulateInvestment(investedAmount, index, rate, isTaxFree, maturityDate);
         call.enqueue(new Callback<Result>() {
             @Override

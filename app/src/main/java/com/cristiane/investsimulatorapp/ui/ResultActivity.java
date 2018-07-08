@@ -94,8 +94,6 @@ public class ResultActivity extends AppCompatActivity {
     };
 
     private void updateValues() {
-        //model.loadResult(32323.0, "CDI", 123.0, false, "2023-03-03");
-
         tvValue.setText(getString(R.string.real_value, model.getResult().getGrossAmount()));
         tvTotalIncome.setText(getString(R.string.total_income, model.getResult().getGrossAmountProfit()));
 

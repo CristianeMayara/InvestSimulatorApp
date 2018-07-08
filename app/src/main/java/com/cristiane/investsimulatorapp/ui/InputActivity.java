@@ -43,7 +43,6 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
 
         initComponents();
         initViewModel();
-        updateValues();
     }
 
     private void initComponents() {
@@ -78,17 +77,11 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_simulate:
-                    model.loadResult(32323.0, "CDI", 123.0, false, "2023-03-03");
+                    model.loadResult(Double.parseDouble(etValueInput.getText().toString()), "CDI", Double.parseDouble(etCdiPercentageInput.getText().toString()), false, etDateInput.getText().toString());
                     break;
             }
         }
     };
-
-    private void updateValues() {
-        etValueInput.setText(getString(R.string.real_value, model.getInvestedAmount()));
-        etDateInput.setText(model.getMaturityDate());
-        etCdiPercentageInput.setText(getString(R.string.percentage_value, model.getRate()));
-    }
 
     private void openResultScreen(Result result) {
         Intent intent = new Intent(this, ResultActivity.class);
