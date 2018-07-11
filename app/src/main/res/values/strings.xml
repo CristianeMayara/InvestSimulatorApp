@@ -35,4 +35,9 @@
     <string name="income_tax_value">R$ %.2f(%.2f%%)</string>
     <string name="date_result">%1$s</string>
 
+    <!-- Error -->
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="error_invalid_content">Texto inválido</string>
+
+
 </resources>
