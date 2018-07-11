@@ -3,6 +3,7 @@ package com.cristiane.investsimulatorapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.text.TextUtils;
 
 import com.cristiane.investsimulatorapp.api.RetrofitInitializer;
 import com.cristiane.investsimulatorapp.api.SimulatorService;
@@ -32,6 +33,20 @@ public class InputViewModel extends ViewModel {
         this.isTaxFree = isTaxFree;
         this.maturityDate = maturityDate;
     }
+
+    private boolean isInvestedAmountValid(){
+        return !(investedAmount <= 0.0);
+    }
+
+    private boolean isMaturityDateValid(){
+        return !TextUtils.isEmpty(maturityDate);
+    }
+
+    private boolean isRateValid(){
+        return !(rate <= 0.0);
+    }
+
+    // getters and setters
 
     public double getInvestedAmount() {
         return investedAmount;
@@ -77,7 +92,35 @@ public class InputViewModel extends ViewModel {
         return result;
     }
 
-    public void loadResult(Double investedAmount, String index, Double rate, boolean isTaxFree, String maturityDate) {
+    public boolean loadResult(Double investedAmount, String index, Double rate, boolean isTaxFree, String maturityDate) {
+        boolean hasError = false;
+
+        updateInputData(investedAmount, index, rate, isTaxFree, maturityDate);
+
+        if (!isInvestedAmountValid()){
+//            registerScreen.showNameError();
+            hasError = true;
+        }
+
+        if (!isMaturityDateValid()){
+//            registerScreen.showEmailError();
+            hasError = true;
+        }
+
+        if (!isRateValid()){
+//            registerScreen.showPhoneError();
+            hasError = true;
+        }
+
+        if (hasError){
+            return false;
+        }
+
+        fetchResult(investedAmount, index, rate, isTaxFree, maturityDate);
+        return true;
+    }
+
+    private void fetchResult(Double investedAmount, String index, Double rate, boolean isTaxFree, String maturityDate) {
         Call<Result> call = RetrofitInitializer.createService(SimulatorService.class).simulateInvestment(investedAmount, index, rate, isTaxFree, maturityDate);
         call.enqueue(new Callback<Result>() {
             @Override

@@ -20,6 +20,7 @@ import com.cristiane.investsimulatorapp.viewmodel.InputViewModel;
  * Created by cristiane on 04/07/2018.
  */
 
+@SuppressWarnings("deprecation")
 public class InputActivity extends AppCompatActivity implements LifecycleRegistryOwner {
 
     public static final String TAG = "InputActivity";
