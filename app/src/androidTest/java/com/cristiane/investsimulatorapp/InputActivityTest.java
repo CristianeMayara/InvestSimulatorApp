@@ -20,7 +20,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
@@ -40,12 +40,33 @@ public class InputActivityTest {
         onView(withId(R.id.et_value_input)).check(matches(withError(getString(R.string.error_invalid_value))));
     }
 
-    /*@Test
-    public void valueInputIsInvalid() {
-        onView(withId(R.id.et_value_input)).perform(typeText("invalid"), closeSoftKeyboard());
+    @Test
+    public void maturityDateIsEmpty() {
+        onView(withId(R.id.et_date_input)).perform(clearText());
         onView(withId(R.id.bt_simulate)).perform(click());
-        onView(withId(R.id.et_value_input)).check(matches(withError(getString(R.string.error_invalid_content))));
-    }*/
+        onView(withId(R.id.et_date_input)).check(matches(withError(getString(R.string.error_invalid_date))));
+    }
+
+    @Test
+    public void rateIsEmpty() {
+        onView(withId(R.id.et_cdi_percentage_input)).perform(clearText());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withId(R.id.et_cdi_percentage_input)).check(matches(withError(getString(R.string.error_invalid_rate))));
+    }
+
+    @Test
+    public void valueInputIsInvalid() {
+        onView(withId(R.id.et_value_input)).perform(typeText("0.0"), closeSoftKeyboard());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withId(R.id.et_value_input)).check(matches(withError(getString(R.string.error_invalid_value))));
+    }
+
+    @Test
+    public void rateIsInvalid() {
+        onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("0.0"), closeSoftKeyboard());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withId(R.id.et_cdi_percentage_input)).check(matches(withError(getString(R.string.error_invalid_rate))));
+    }
 
     private String getString(@StringRes int resourceId) {
         return activityTestRule.getActivity().getString(resourceId);

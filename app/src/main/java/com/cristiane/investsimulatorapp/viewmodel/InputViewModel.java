@@ -130,7 +130,7 @@ public class InputViewModel extends ViewModel {
         fetchResult(ctx);
     }
 
-    private void fetchResult(final Context ctx/*, Double investedAmount, String index, Double rate, boolean isTaxFree, String maturityDate*/) {
+    private void fetchResult(final Context ctx) {
         Call<Result> call = RetrofitInitializer.createService(SimulatorService.class).simulateInvestment(investedAmount, index, rate, isTaxFree, maturityDate);
         call.enqueue(new Callback<Result>() {
             @Override
