@@ -35,9 +35,10 @@
     <string name="income_tax_value">R$ %.2f(%.2f%%)</string>
     <string name="date_result">%1$s</string>
 
-    <!-- Error -->
-    <string name="error_field_required">Campo obrigatório</string>
-    <string name="error_invalid_content">Texto inválido</string>
-
+    <!-- Error messages -->
+    <string name="error_invalid_value">Insira uma quantia válida</string>
+    <string name="error_invalid_date">Insira uma data válida</string>
+    <string name="error_invalid_rate">Insira um percentual válido</string>
+    <string name="error_simulation_failed">Não foi possível realizar a simulação. Tente novamente mais tarde.</string>
 
 </resources>
