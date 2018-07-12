@@ -22,7 +22,11 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by cristiane on 10/07/2018.
@@ -68,6 +72,37 @@ public class InputActivityTest {
         onView(withId(R.id.et_cdi_percentage_input)).check(matches(withError(getString(R.string.error_invalid_rate))));
     }
 
+    @Test
+    public void loginFailed() {
+        onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
+        onView(withId(R.id.et_date_input)).perform(typeText("2010-03-03"), closeSoftKeyboard());
+        onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withText(getString(R.string.error_simulation_failed)))
+                .inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void loginSuccessfully_shouldShowToast() {
+        onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
+        onView(withId(R.id.et_date_input)).perform(typeText("2023-03-03"), closeSoftKeyboard());
+        onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withText(getString(R.string.simulation_successfully)))
+                .inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView())))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void loginSuccessfully_shouldShowResultTitle() {
+        onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
+        onView(withId(R.id.et_date_input)).perform(typeText("2023-03-03"), closeSoftKeyboard());
+        onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withId(R.id.tv_result_title)).check(matches(withText(getString(R.string.result_title))));
+    }
+
     private String getString(@StringRes int resourceId) {
         return activityTestRule.getActivity().getString(resourceId);
     }
@@ -76,10 +111,7 @@ public class InputActivityTest {
         return new TypeSafeMatcher<View>() {
             @Override
             protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
+                return item instanceof EditText && ((EditText) item).getError().toString().equals(expected);
             }
 
             @Override

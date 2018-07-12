@@ -40,5 +40,6 @@
     <string name="error_invalid_date">Insira uma data válida</string>
     <string name="error_invalid_rate">Insira um percentual válido</string>
     <string name="error_simulation_failed">Não foi possível realizar a simulação. Tente novamente mais tarde.</string>
+    <string name="simulation_successfully">Confira os resultados da simulação!</string>
 
 </resources>

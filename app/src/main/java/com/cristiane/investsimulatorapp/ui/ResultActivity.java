@@ -17,7 +17,7 @@ import com.cristiane.investsimulatorapp.viewmodel.ResultViewModel;
 
 public class ResultActivity extends AppCompatActivity {
 
-    public static final String TAG = "ResultActivity";
+    public static final String TAG = ResultActivity.class.getSimpleName();
     public static final String ARG_RESULT = "ARG_RESULT";
 
     private TextView tvValue;

@@ -29,7 +29,7 @@ public class InputViewModel extends ViewModel {
 
     private MutableLiveData<Result> result = new MutableLiveData<>();
 
-    public void updateInputData(String investedAmount, String index, String rate, boolean isTaxFree, String maturityDate) {
+    private void updateInputData(String investedAmount, String index, String rate, boolean isTaxFree, String maturityDate) {
         this.investedAmount = stringToDouble(investedAmount);
         this.index = index;
         this.rate = stringToDouble(rate);
@@ -139,7 +139,7 @@ public class InputViewModel extends ViewModel {
                     result.postValue(response.body());
                 } else {
                     result.postValue(null);
-                    ((InputActivity) ctx).showRegisterFailed();
+                    ((InputActivity) ctx).showSimulationFailed();
                 }
             }
 

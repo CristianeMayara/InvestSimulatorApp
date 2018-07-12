@@ -71,6 +71,7 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
             @Override
             public void onChanged(@Nullable Result result) {
                 if (result != null) {
+                    showSimulationSuccessfully();
                     openResultScreen(result);
                 }
             }
@@ -103,8 +104,12 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
         etCdiPercentageInput.requestFocus();
     }
 
-    public void showRegisterFailed() {
+    public void showSimulationFailed() {
         Toast.makeText(this, getString(R.string.error_simulation_failed), Toast.LENGTH_SHORT).show();
+    }
+
+    public void showSimulationSuccessfully() {
+        Toast.makeText(this, getString(R.string.simulation_successfully), Toast.LENGTH_SHORT).show();
     }
 
     private void openResultScreen(Result result) {
