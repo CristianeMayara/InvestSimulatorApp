@@ -71,7 +71,7 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
             @Override
             public void onChanged(@Nullable Result result) {
                 if (result != null) {
-                    showSimulationSuccessfully();
+//                    showSimulationSuccessfully();
                     openResultScreen(result);
                 }
             }

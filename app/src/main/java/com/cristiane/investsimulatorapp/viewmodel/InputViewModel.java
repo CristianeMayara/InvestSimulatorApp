@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.cristiane.investsimulatorapp.api.RetrofitInitializer;
 import com.cristiane.investsimulatorapp.api.SimulatorService;
@@ -29,7 +28,7 @@ public class InputViewModel extends ViewModel {
 
     private MutableLiveData<Result> result = new MutableLiveData<>();
 
-    private void updateInputData(String investedAmount, String index, String rate, boolean isTaxFree, String maturityDate) {
+    public void updateInputData(String investedAmount, String index, String rate, boolean isTaxFree, String maturityDate) {
         this.investedAmount = stringToDouble(investedAmount);
         this.index = index;
         this.rate = stringToDouble(rate);
@@ -38,7 +37,7 @@ public class InputViewModel extends ViewModel {
     }
 
     private Double stringToDouble(String value) {
-        if (TextUtils.isEmpty(value)) return 0.0;
+        if (value.length() == 0) return 0.0;
 
         try {
             return Double.parseDouble(value);
@@ -52,7 +51,7 @@ public class InputViewModel extends ViewModel {
     }
 
     private boolean isMaturityDateValid() {
-        return !TextUtils.isEmpty(maturityDate);
+        return !(maturityDate.length() == 0);
     }
 
     private boolean isRateValid() {
@@ -126,17 +125,19 @@ public class InputViewModel extends ViewModel {
         }
 
         if (hasError) return;
+//        else ((InputActivity) ctx).showSimulationSuccessfully();
 
         fetchResult(ctx);
     }
 
-    private void fetchResult(final Context ctx) {
+    public void fetchResult(final Context ctx) {
         Call<Result> call = RetrofitInitializer.createService(SimulatorService.class).simulateInvestment(investedAmount, index, rate, isTaxFree, maturityDate);
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 if (response.isSuccessful()) {
                     result.postValue(response.body());
+                    ((InputActivity) ctx).showSimulationSuccessfully();
                 } else {
                     result.postValue(null);
                     ((InputActivity) ctx).showSimulationFailed();
