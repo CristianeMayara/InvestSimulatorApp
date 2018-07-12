@@ -34,10 +34,10 @@ public class InputActivityTest {
     public ActivityTestRule<InputActivity> activityTestRule = new ActivityTestRule<>(InputActivity.class);
 
     @Test
-    public void investedAmountIsEmpty() throws InterruptedException {
+    public void investedAmountIsEmpty() {
         onView(withId(R.id.et_value_input)).perform(clearText());
-        onView (withId(R.id.bt_simulate)).perform(click());
-        onView(withId(R.id.et_value_input)).check(matches(withError(getString(R.string.error_field_required))));
+        onView(withId(R.id.bt_simulate)).perform(click());
+        onView(withId(R.id.et_value_input)).check(matches(withError(getString(R.string.error_invalid_value))));
     }
 
     /*@Test
