@@ -26,7 +26,7 @@ public class InputViewModel extends ViewModel {
     private boolean isTaxFree;
     private String maturityDate;
 
-    private MutableLiveData<Result> result = new MutableLiveData<>();
+    public MutableLiveData<Result> result = new MutableLiveData<>();
 
     public void updateInputData(String investedAmount, String index, String rate, boolean isTaxFree, String maturityDate) {
         this.investedAmount = stringToDouble(investedAmount);

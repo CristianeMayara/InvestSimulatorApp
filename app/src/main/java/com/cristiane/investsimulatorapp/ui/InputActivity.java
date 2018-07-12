@@ -112,7 +112,12 @@ public class InputActivity extends AppCompatActivity implements LifecycleRegistr
         Toast.makeText(this, getString(R.string.simulation_successfully), Toast.LENGTH_SHORT).show();
     }
 
-    private void openResultScreen(Result result) {
+    public void openResultScreen(Result result) {
+        if (result == null) {
+            showSimulationFailed();
+            return;
+        }
+
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra(ResultActivity.ARG_RESULT, result);
         startActivity(intent);
