@@ -33,7 +33,7 @@ public class InputViewModelTest {
     Context mMockContext;
 
     final String dummyValue = "32000.00";
-    final String dummyDate = "2020-12-01";
+    final String dummyDate = "01/12/2020";
     final String dummyRate = "123";
 
     MutableLiveData<Result> liveData;
@@ -69,6 +69,30 @@ public class InputViewModelTest {
     @Test
     public void simulateWithEmptyMaturityDate_showsMaturityDateError() {
         viewModel.loadResult(mMockContext, dummyValue, "CDI", dummyRate, false, "");
+
+        verify((InputActivity) mMockContext).showDateError();
+        verify((InputActivity) mMockContext, never()).showSimulationSuccessfully();
+    }
+
+    @Test
+    public void simulateWithInvalidyyyyMMddMaturityDate_showsMaturityDateError() {
+        viewModel.loadResult(mMockContext, dummyValue, "CDI", dummyRate, false, "2020/01/03");
+
+        verify((InputActivity) mMockContext).showDateError();
+        verify((InputActivity) mMockContext, never()).showSimulationSuccessfully();
+    }
+
+    @Test
+    public void simulateWithInvalidyyyyddMMMaturityDate_showsMaturityDateError() {
+        viewModel.loadResult(mMockContext, dummyValue, "CDI", dummyRate, false, "2020-03-01");
+
+        verify((InputActivity) mMockContext).showDateError();
+        verify((InputActivity) mMockContext, never()).showSimulationSuccessfully();
+    }
+
+    @Test
+    public void simulateWithInvalidMMddyyyyMaturityDate_showsMaturityDateError() {
+        viewModel.loadResult(mMockContext, dummyValue, "CDI", dummyRate, false, "12/23/2020");
 
         verify((InputActivity) mMockContext).showDateError();
         verify((InputActivity) mMockContext, never()).showSimulationSuccessfully();

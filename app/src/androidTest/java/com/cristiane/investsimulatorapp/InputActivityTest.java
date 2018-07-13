@@ -73,9 +73,9 @@ public class InputActivityTest {
     }
 
     @Test
-    public void loginFailed() {
+    public void simulationFailed() {
         onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
-        onView(withId(R.id.et_date_input)).perform(typeText("2010-03-03"), closeSoftKeyboard());
+        onView(withId(R.id.et_date_input)).perform(typeText("03/03/2010"), closeSoftKeyboard());
         onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
         onView(withId(R.id.bt_simulate)).perform(click());
         onView(withText(getString(R.string.error_simulation_failed)))
@@ -84,23 +84,14 @@ public class InputActivityTest {
     }
 
     @Test
-    public void loginSuccessfully_shouldShowToast() {
+    public void simulationSuccessfully_shouldShowToast() {
         onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
-        onView(withId(R.id.et_date_input)).perform(typeText("2023-03-03"), closeSoftKeyboard());
+        onView(withId(R.id.et_date_input)).perform(typeText("03/03/2023"), closeSoftKeyboard());
         onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
         onView(withId(R.id.bt_simulate)).perform(click());
         onView(withText(getString(R.string.simulation_successfully)))
                 .inRoot(withDecorView(not(activityTestRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void loginSuccessfully_shouldShowResultTitle() {
-        onView(withId(R.id.et_value_input)).perform(typeText("32323.0"), closeSoftKeyboard());
-        onView(withId(R.id.et_date_input)).perform(typeText("2023-03-03"), closeSoftKeyboard());
-        onView(withId(R.id.et_cdi_percentage_input)).perform(typeText("123"), closeSoftKeyboard());
-        onView(withId(R.id.bt_simulate)).perform(click());
-        onView(withId(R.id.tv_result_title)).check(matches(withText(getString(R.string.result_title))));
     }
 
     private String getString(@StringRes int resourceId) {
