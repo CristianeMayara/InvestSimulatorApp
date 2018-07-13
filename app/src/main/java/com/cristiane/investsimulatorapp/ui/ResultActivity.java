@@ -103,7 +103,7 @@ public class ResultActivity extends AppCompatActivity {
         tvIncomeTax.setText(getString(R.string.income_tax_value, model.getResult().getTaxesAmount(), model.getResult().getTaxesRate()));
         tvNetValue.setText(getString(R.string.real_value, model.getResult().getNetAmount()));
 
-        tvRedemptionDate.setText(model.getResult().getInvestmentParameter().getMaturityDate());
+        tvRedemptionDate.setText(model.setDateFormat(model.getResult().getInvestmentParameter().getMaturityDate()));
         tvConsecutiveDays.setText(String.valueOf(model.getResult().getInvestmentParameter().getMaturityBusinessDays()));
         tvMonthlyIncome.setText(getString(R.string.percentage_value, model.getResult().getAnnualGrossRateProfit()));
         tvCdiPercentage.setText(getString(R.string.percentage_value, model.getResult().getInvestmentParameter().getRate()));
