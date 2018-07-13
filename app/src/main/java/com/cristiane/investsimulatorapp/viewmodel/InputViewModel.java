@@ -11,6 +11,13 @@ import com.cristiane.investsimulatorapp.api.SimulatorService;
 import com.cristiane.investsimulatorapp.model.Result;
 import com.cristiane.investsimulatorapp.ui.InputActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,12 +53,37 @@ public class InputViewModel extends ViewModel {
         }
     }
 
+    private String setDateFormat(String input) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = format.parse(input);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private boolean validateDateFormat(String date) {
+        Pattern pattern = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)");
+
+        Matcher matcher = pattern.matcher(date);
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean isInvestedAmountValid() {
         return !(investedAmount <= 0.0);
     }
 
     private boolean isMaturityDateValid() {
-        return !(maturityDate.length() == 0);
+        if (maturityDate.length() == 0) return false;
+        return validateDateFormat(maturityDate);
     }
 
     private boolean isRateValid() {
@@ -125,7 +157,8 @@ public class InputViewModel extends ViewModel {
         }
 
         if (hasError) return;
-//        else ((InputActivity) ctx).showSimulationSuccessfully();
+
+        setMaturityDate(setDateFormat(getMaturityDate()));
 
         fetchResult(ctx);
     }
